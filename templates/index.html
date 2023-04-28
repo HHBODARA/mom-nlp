@@ -1,0 +1,199 @@
+<html>
+    <head>
+        <style>
+        thead, tr {
+            border: 2px solid;
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+        th, td {
+/*            border: 1px solid black;*/
+            padding: 12px 15px;
+        }
+        
+        table {
+/*            border: 1px solid black;*/
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);;
+        }
+        </style>
+        </head>
+<body>
+
+
+<table>
+    <thead> 
+        <tr> 
+            <th colspan="5" align = 'center'>MOM - Minutes of the meeting</th>
+        </tr>
+        <tr> 
+            <th colspan="1"> 
+                Topic
+            </th> 
+            <td colspan="1"> 
+                {% for x in json_data['topic'] %}
+                    {% if json_data['topic']|length == 1 %}
+                    {{x}}
+                    {%else%}
+                    {{x}},
+                    {%endif%}
+                {%endfor%}
+            </td>
+            <th colspan="1"> 
+                Type
+            </th> 
+            <th colspan="1"> 
+                Location
+            </th> 
+            <td colspan="1"> 
+                {{json_data['location']}}
+            </td>
+        </tr>
+        <tr> 
+            <th colspan="1"> 
+                Organizer
+            </th> 
+            <td colspan="1"> 
+                {{json_data['organizer']}}
+            </td>
+            <td colspan="1"> 
+                demo
+            </td>
+            <th colspan="1"> 
+                Date
+            </th>
+            <td colspan="1"> 
+                {{json_data['date']}}
+            </td>
+        </tr>
+
+        <tr> 
+            <th colspan="1" rowspan="6"> 
+                Participants
+            </th> 
+            <td colspan="2" rowspan="6"> 
+                {% for x in json_data['participants'] %}
+                    {{x}}<br>
+                {% endfor %}
+            </td>
+            <th colspan="1"> 
+                Start time
+            </th>
+            <td colspan="1"> 
+                -
+            </td>
+
+        </tr>
+
+        <tr> 
+            <th colspan="1"> 
+                End time
+            </th>
+            <td colspan="1"> 
+                -
+            </td>
+
+        </tr>
+
+        <tr> 
+            <th colspan="1"> 
+                Duration
+            </th>
+            <td colspan="1"> 
+                {{json_data['duration']}}
+            </td>
+
+        </tr>
+        <tr> 
+            <th colspan="1"> 
+                Updated by
+            </th>
+            <td colspan="1"> 
+                {{json_data['updated_by']}}
+            </td>
+        </tr>
+        <tr>
+        <th colspan="1"> 
+            Last Updated
+         </th>
+         <td colspan="1"> 
+            {{json_data['updated_on']}}
+         </td>
+        </tr>
+        </thead>
+</table>
+
+<br>
+<br>
+<table>
+    <thead> 
+        <tr> 
+            <th colspan="1"></th>
+            <th colspan="1">Points Discussed</th> 
+            <th colspan="4">Remarks</th>
+        </tr> 
+        
+        {% for x in range(json_data['agenda']|length) %}
+        <tr> 
+            <th colspan="1"> 
+                {{x+1}}
+            </th> 
+            <td colspan="1"> 
+                {{json_data['agenda'][x]}}
+            </td>
+            <td colspan="1"> 
+                
+            </td>
+        </tr>
+        {%endfor%}
+
+        </thead>
+</table>
+
+<br>
+    <table>
+        <thead> 
+        <tr> 
+            <th colspan="1">Prepared by</th> 
+            <td colspan="1">{{json_data['prepared_by']}}</td>
+            <th colspan="1" rowspan="1" align="Center">Meeting summary</th> 
+            <!-- <td colspan="1" rowspan="1">
+                {% for x in range(json_data['summary']|length) %}
+                    {{json_data['summary'][x]}}
+                {%endfor%}
+            </td> -->
+        </tr> 
+        <!-- <tr> 
+            <th colspan="1">Designation</th> 
+            <td colspan="1"></td>
+        </tr> -->
+        <tr> 
+            <th colspan="1">E-mail address</th> 
+            <td colspan="1">{{json_data['email']}}</td>
+            <td colspan="1" rowspan="1">
+                {% for x in range(json_data['summary']|length) %}
+                    {{json_data['summary'][x]}}
+                {%endfor%}
+            </td>
+        </tr>
+        </thead>
+    </table>
+
+    <table>
+        <thead>
+            <tr> 
+            <th colspan="5">Transcription</th>
+        </tr>
+        </thead>
+    </table>
+    {% for x in range(json_data['transcript']|length) %}
+    <br>{{json_data['transcript'][x]}}
+    {%endfor%}
+</body>
+</html>
